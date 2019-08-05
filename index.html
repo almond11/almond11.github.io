@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+ <meta charset="UTF-8">
+ <title>Global Population</title>
+ <style>
+  .container {
+  margin: 30px auto;
+  width: 600px;
+  height: 300px;
+  border: 1px solid #000;
+  }
+  polyline {
+  fill: none;
+  stroke: #000000;
+  stroke-width: 2px;
+  stroke-dasharray: 5px;
+  }
+  .Button2 {background-color: #008CBA;} /* Blue */
+.Button3 {background-color: #f44336;} /* Red */ 
+.Button4 {background-color:  #4CAF50; color: black;} /* Gray */ 
+ </style>
+ </head>
+ <body>
+ <div style="margin-left:500px">
+ <button id="Button2" class="button Button2" >CO2 Emissions </button>
+ 
+  <button id="Button3" class="button Button3" >Marginal economic gain</button>
+  
+ <button id="Button4" class="button Button4" >Countries</button>
+ </div>
+ <div class="container">
+  <svg width="100%" height="100%"></svg>
+ </div>
+ <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+ <script>
+  window.onload = function() {
+  var width = 600, height = 300;
+  var main = d3.select('.container svg').append('g')
+   .classed('main', true)
+   .attr('transform', "translate(" + width/2 + ',' + height/2 + ')');
+  var dataset = [
+   {name: 'Asia', value: 4601},
+   {name: 'Oceania', value: 42 },
+   {name: 'Africa	', value: 1308},
+   {name: 'Europe	', value: 747 },
+   {name: 'South America	', value: 427 },
+   {name: 'North America	', value: 366 }
+   
+   	
+  ];
+  var pie = d3.layout.pie()
+   .sort(null)
+   .value(function(d) {
+    return d.value;
+   });
+  var pieData = pie(dataset);
+  var radius = 100;
+  var arc = d3.svg.arc()
+   .innerRadius(0)
+   .outerRadius(radius);
+  var outerArc = d3.svg.arc()
+   .innerRadius(1.2 * radius)
+   .outerRadius(1.2 * radius);
+  var oArc = d3.svg.arc()
+   .innerRadius(1.1 * radius)
+   .outerRadius(1.1 * radius);
+  var slices = main.append('g').attr('class', 'slices');
+  var lines = main.append('g').attr('class', 'lines');
+  var labels = main.append('g').attr('class', 'labels');
+  var arcs = slices.selectAll('g')
+   .data(pieData)
+   .enter()
+   .append('path')
+   .attr('fill', function(d, i) {
+    return getColor(i);
+   })
+   .attr('d', function(d){
+    return arc(d);
+   });
+  var texts = labels.selectAll('text')
+   .data(pieData)
+   .enter()
+   .append('text')
+   .attr('dy', '0.35em')
+   .attr('fill', function(d, i) {
+    return getColor(i);
+   })
+   .text(function(d, i) {
+    return d.data.name;
+   })
+   .style('text-anchor', function(d, i) {
+    return midAngel(d)<Math.PI ? 'start' : 'end';
+   })
+   .attr('transform', function(d, i) {
+    var pos = outerArc.centroid(d);
+    pos[0] = radius * (midAngel(d)<Math.PI ? 1.5 : -1.5);
+
+    return 'translate(' + pos + ')';
+   })
+   .style('opacity', 1);
+
+  var polylines = lines.selectAll('polyline')
+   .data(pieData)
+   .enter()
+   .append('polyline')
+   .attr('points', function(d) {
+    return [arc.centroid(d), arc.centroid(d), arc.centroid(d)];
+   })
+   .attr('points', function(d) {
+    var pos = outerArc.centroid(d);
+    pos[0] = radius * (midAngel(d)<Math.PI ? 1.5 : -1.5);
+    return [oArc.centroid(d), outerArc.centroid(d), pos];
+   })
+   .style('opacity', 0.5);
+  };
+  function midAngel(d) {
+  return d.startAngle + (d.endAngle - d.startAngle)/2;
+  }
+  function getColor(idx) {
+  var palette = [
+   '#2ec7c9', '#b6a2de', '#5ab1ef', '#ffb980', '#d87a80',
+   '#8d98b3', '#e5cf0d', '#97b552', '#95706d', '#dc69aa',
+   '#07a2a4', '#9a7fd1', '#588dd5', '#f5994e', '#c05050',
+   '#59678c', '#c9ab00', '#7eb00a', '#6f5553', '#c14089'
+  ]
+  return palette[idx % palette.length];
+  // shape helper to build arcs:
+var arcGenerator = d3.arc()
+  .innerRadius(0)
+  .outerRadius(radius)
+  
+  slices.selectAll('g')
+  .data(pieData)
+  .enter()
+  .append('text')
+  .text(function(d){ return d.data.value})
+  .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")";  })
+  .style("text-anchor", "middle")
+  .style("font-size", 17)
+
+  }
+ </script>
+ 
+ 
+
+
+
+
+<script type="text/javascript">
+    document.getElementById("Button2").onclick = function () {
+        location.href = "2.html";
+    };
+
+    document.getElementById("Button3").onclick = function () {
+        location.href = "3.html";
+    };
+	
+	
+
+    document.getElementById("Button4").onclick = function () {
+        location.href = "4.html";
+    };
+</script>
+
+</div><div id="playbuzz" style="max-width:640px;margin-left:300px"><pb-mcd embed-id="dcafeba2-b1b5-4bbb-bbbe-35aa3e0b4b20"></pb-mcd></div></div></div></div></div></div><div class="PanelStyles__StyledPanel-q2thvi-0 fsgVMZ"><div class="content has-flag container-fluid horizontal-section-container undefined" style="margin:0;border:0"><div class="row"><div class="col-sm-12"><div class="section-container clearfix"><div style="max-width:100%;overflow-x:auto"><table class="table table-striped" style="margin-top:0;margin-left:400px"><thead style="font-weight:bold"><tr><td><a style="color:black;cursor:pointer" data-field="Name">Name<!-- --> <!-- --> </a></td><td><a style="color:black;cursor:pointer" data-field="Pop">2019 Population<!-- --> <i class="fa fa-caret-down" aria-hidden="true"></i> </a></td><td><a style="color:black;cursor:pointer" data-field="WorldPop">World&#x27;s Population (%)<!-- --> <!-- --> </a></td><td><a style="color:black;cursor:pointer" data-field="GrowthRate">Growth Rate (%)<!-- --> <!-- --> </a></td><td><a style="color:black;cursor:pointer" data-field="PopDensity">Pop Density (sq km)<!-- --> <!-- --> </a><i style="float:right;font-size:16px;padding-top:2px;margin-right:-8px" class="fa fa-bars"></i></td></tr></thead><tbody><tr><td><a >Asia</a></td><td>4,601,371,198</td><td>59.65%</td><td><span style="color:black">0.89%</span></td><td>103.22</td></tr><tr><td><a >Africa</a></td><td>1,308,064,195</td><td>16.96%</td><td><span style="color:black">2.52%</span></td><td>43.17</td></tr><tr><td><a>Europe</a></td><td>747,182,751</td><td>9.69%</td><td><span style="color:black">0.10%</span></td><td>33.76</td></tr><tr><td><a >South America</a></td><td>427,199,446</td><td>5.54%</td><td><span style="color:black">0.85%</span></td><td>23.95</td></tr><tr><td><a>North America</a></td><td>366,600,964</td><td>4.75%</td><td><span style="color:black">0.63%</span></td><td>14.84</td></tr><tr><td><a >Oceania</a></td><td>42,128,035</td><td>0.55%</td><td><span style="color:black">1.34%</span></td><td>4.96</td></tr></tbody></table></div></div></div></div></div>
+
+
+ </body>
+</html>
